@@ -1,19 +1,22 @@
-# 启动qt
+# Introdution
+A simple demo for pyside6+vue3
+
+# start qt client
 ```
 cd qt
 python main.py
 ```
 
 
-# 启动前端
+# start vue
 ```
 cd front
 yarn serve
 ```
 
 
-# 查看页面对qt的调用
+# check them out
 ```
 http://localhost:8080/iconbar.html
-F12 进入开发者模式
+F12 
 ```
