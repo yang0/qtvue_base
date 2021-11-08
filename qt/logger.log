@@ -1,0 +1,8 @@
+2021-11-06 12:36:32.843 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-06 12:36:32.845 | INFO     | utils.utils:wrapper:42 - func: p done. no data emit.
+2021-11-06 14:57:32.233 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-06 14:57:32.235 | INFO     | utils.utils:wrapper:42 - func: p done. no data emit.
+2021-11-06 20:10:57.143 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-06 20:10:57.151 | INFO     | utils.utils:wrapper:42 - func: p done. no data emit.
+2021-11-07 10:44:12.510 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-07 10:44:12.515 | INFO     | utils.utils:wrapper:42 - func: p done. no data emit.
