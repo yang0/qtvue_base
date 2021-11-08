@@ -67,7 +67,7 @@ if __name__ == '__main__':
     socket_client = WebSocketClientWrapper(12345)
     bridge = WebBridge()
     bridge.bind_service(TestService)
-    socket_client.channel.registerObject("bridge", bridge)
+    socket_client.register_obj("bridge", bridge)
 
     # open a browser window with the client HTML page
     cur_dir = os.path.dirname(os.path.abspath(__file__))

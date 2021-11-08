@@ -90,3 +90,8 @@ class WebSocketClientWrapper(QObject):
         transport = WebSocketTransport(socket)
         self._transports.append(transport)
         self.client_connected.emit(transport)
+
+
+    def register_obj(self, obj_name: str, obj:QObject):
+         self.channel.registerObject(obj_name, obj)
+          
