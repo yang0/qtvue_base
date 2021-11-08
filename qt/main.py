@@ -66,7 +66,7 @@ if __name__ == '__main__':
     
     socket_client = WebSocketClientWrapper(12345)
     bridge = WebBridge()
-    TestService(bridge)
+    bridge.bind_service(TestService)
     socket_client.channel.registerObject("bridge", bridge)
 
     # open a browser window with the client HTML page

@@ -31,3 +31,6 @@ class WebBridge(QObject):
         except Exception as err:
             logger.warning("pyqt error: {}".format(err))
             self.sendJson.emit(returnFailure(str(err)))
+
+    def bind_service(self, service_clas):
+        service_clas(self)

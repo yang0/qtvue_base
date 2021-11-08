@@ -6,3 +6,6 @@
 2021-11-06 20:10:57.151 | INFO     | utils.utils:wrapper:42 - func: p done. no data emit.
 2021-11-07 10:44:12.510 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
 2021-11-07 10:44:12.515 | INFO     | utils.utils:wrapper:42 - func: p done. no data emit.
+2021-11-08 11:22:05.793 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-08 11:22:05.803 | INFO     | utils.utils:wrapper:44 - func: p emit: abcdefg
+2021-11-08 11:22:05.811 | INFO     | webbridge:request:29 - pyqt emit: {"data": {"func": "p", "data": "abcdefg"}, "message": "success", "code": 200}
