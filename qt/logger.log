@@ -12,3 +12,12 @@
 2021-11-08 11:25:59.442 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
 2021-11-08 11:25:59.444 | INFO     | utils.utils:wrapper:44 - func: p emit: abcdefg
 2021-11-08 11:25:59.445 | INFO     | webbridge:request:29 - pyqt emit: {"data": {"func": "p", "data": "abcdefg"}, "message": "success", "code": 200}
+2021-11-08 11:28:46.443 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-08 11:28:46.445 | INFO     | utils.utils:wrapper:44 - func: p emit: abcdefg
+2021-11-08 11:28:46.446 | INFO     | webbridge:request:29 - pyqt emit: {"data": {"func": "p", "data": "abcdefg"}, "message": "success", "code": 200}
+2021-11-08 11:35:27.021 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-08 11:35:27.023 | INFO     | utils.utils:wrapper:44 - func: p emit: abcdefg
+2021-11-08 11:35:27.025 | INFO     | webbridge:request:29 - pyqt emit: {"data": {"func": "p", "data": "abcdefg"}, "message": "success", "code": 200}
+2021-11-08 11:54:53.098 | INFO     | webbridge:request:14 - vue request: {"func":"p","data":null}
+2021-11-08 11:54:53.100 | INFO     | utils.utils:wrapper:44 - func: p emit: abcdefg
+2021-11-08 11:54:53.102 | INFO     | webbridge:request:29 - pyqt emit: {"data": {"func": "p", "data": "abcdefg"}, "message": "success", "code": 200}

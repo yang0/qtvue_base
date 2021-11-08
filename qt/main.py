@@ -56,18 +56,13 @@ from webbridge import WebBridge
 from testservice import TestService
 
 class Test(QObject):
-
     def __init__(self, parent=None):
         super().__init__(parent)
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     
-    socket_client = WebSocketClientWrapper(12345)
-    bridge = WebBridge()
-    bridge.bind_service(TestService)
-    socket_client.register_obj("bridge", bridge)
+    WebSocketClientWrapper(app, 12345)
 
     # open a browser window with the client HTML page
     cur_dir = os.path.dirname(os.path.abspath(__file__))

@@ -44,54 +44,71 @@ from PySide6.QtWebChannel import QWebChannel
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtNetwork import QHostAddress, QSslSocket
 from PySide6.QtWebSockets import QWebSocketServer
-
+from PySide6.QtWidgets import QApplication
+from webbridge import WebBridge
 from websockettransport import WebSocketTransport
+from webservice_config import services
 
 
 class WebSocketClientWrapper(QObject):
-    """Wraps connected QWebSockets clients in WebSocketTransport objects.
+   """Wraps connected QWebSockets clients in WebSocketTransport objects.
 
-       This code is all that is required to connect incoming WebSockets to
-       the WebChannel. Any kind of remote JavaScript client that supports
-       WebSockets can thus receive messages and access the published objects.
-    """
-    client_connected = Signal(WebSocketTransport)
+      This code is all that is required to connect incoming WebSockets to
+      the WebChannel. Any kind of remote JavaScript client that supports
+      WebSockets can thus receive messages and access the published objects.
+   """
+   client_connected = Signal(WebSocketTransport)
 
-    def __init__(self, port, parent=None):
-        """Construct the client wrapper with the given parent. All clients
-           connecting to the QWebSocketServer will be automatically wrapped
-           in WebSocketTransport objects."""
-        super().__init__(parent)
-        self._server = self._create_server(port)
-        self._server.newConnection.connect(self.handle_new_connection)
-        self._transports = []
-        self.channel = QWebChannel()
-        self.client_connected.connect(self.channel.connectTo)
+   def __init__(self, app:QApplication,  port, parent=None):
+      """Construct the client wrapper with the given parent. All clients
+         connecting to the QWebSocketServer will be automatically wrapped
+         in WebSocketTransport objects."""
+      super().__init__(parent)
+      self._server = self._create_server(port)
+      self._server.newConnection.connect(self.handle_new_connection)
+      self._transports = []
+      self.channel = QWebChannel()
+      self.client_connected.connect(self.channel.connectTo)
+      self.bridge = WebBridge()
+      self.register_obj("bridge", self.bridge)
+      self.bind_services()
 
-    def _create_server(self, port):
-         if not QSslSocket.supportsSsl():
-            print('The example requires SSL support.')
-            sys.exit(-1)
+      app.web_socket = self
 
-         server = QWebSocketServer("QWebChannel Standalone Example Server",
-                              QWebSocketServer.NonSecureMode)
-         if not server.listen(QHostAddress.LocalHost, port):
-            print("Failed to open web socket server.")
-            sys.exit(-1)
+   def _create_server(self, port):
+      if not QSslSocket.supportsSsl():
+         print('The example requires SSL support.')
+         sys.exit(-1)
 
-         return server
+      server = QWebSocketServer("QWebChannel Standalone Example Server",
+                           QWebSocketServer.NonSecureMode)
+      if not server.listen(QHostAddress.LocalHost, port):
+         print("Failed to open web socket server.")
+         sys.exit(-1)
 
-
-    @Slot()
-    def handle_new_connection(self):
-        """Wrap an incoming WebSocket connection in a WebSocketTransport
-           object."""
-        socket = self._server.nextPendingConnection()
-        transport = WebSocketTransport(socket)
-        self._transports.append(transport)
-        self.client_connected.emit(transport)
+      return server
 
 
-    def register_obj(self, obj_name: str, obj:QObject):
-         self.channel.registerObject(obj_name, obj)
+   @Slot()
+   def handle_new_connection(self):
+      """Wrap an incoming WebSocket connection in a WebSocketTransport
+         object."""
+      socket = self._server.nextPendingConnection()
+      transport = WebSocketTransport(socket)
+      self._transports.append(transport)
+      self.client_connected.emit(transport)
+
+
+   def register_obj(self, obj_name: str, obj:QObject):
+      self.channel.registerObject(obj_name, obj)
+
+   def bind_service(self, service_cls):
+      self.bridge.bind_service(service_cls)
+
+   def bind_services(self):
+      for service_cls in services:
+         self.bind_service(service_cls)
+          
+
+
           
