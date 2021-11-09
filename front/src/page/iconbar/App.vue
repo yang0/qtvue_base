@@ -40,8 +40,6 @@ export default {
     onMounted(() => {
       qt_request('p', null, printTest)
     });
-
-
   },
 };
 </script>

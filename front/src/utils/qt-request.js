@@ -3,6 +3,8 @@ import { ElMessage, Notification } from 'element-plus'
 import { getCurrentInstance, onMounted } from "vue";
 
 export var callBackDict = {}
+var initRequestDict = {}
+var socketOpened = false
 
 function qtCallBack(jsonString) {
   /*
@@ -43,6 +45,19 @@ function qtCallBack(jsonString) {
 }
 
 
+
+function qt_request(func, data = null, callBack = null) {
+  if(socketOpened){
+    const { proxy, ctx } = getCurrentInstance();
+    proxy.$request(func, data, callBack)
+    return
+  }
+
+  var param = {'func': func, 'func_param': data, 'callback': callBack}
+  initRequestDict[func] = param
+}
+
+
 export default {
   install: (app, options) => {
     // window.onload = function () {
@@ -76,15 +91,15 @@ export default {
 
         channel.objects.bridge.sendJson.connect(qtCallBack)
 
-        app.mount('#app')
+        for(var k in initRequestDict){
+          var param = initRequestDict[k]
+          app.config.globalProperties.$request(param.func, param.func_param, param.callback)
+        }
+        socketOpened = true
       });
     }
   }
 }
 
-function qt_request(func, data = null, callBack = null) {
-  const { proxy, ctx } = getCurrentInstance();
-  proxy.$request(func, data, callBack)
-}
 
 export { qt_request }

@@ -4,6 +4,6 @@ import router from './router'
 
 import qtweb from '@/utils/qt-request'
 
-createApp(App).use(router).use(qtweb)
+createApp(App).use(router).use(qtweb).mount('#app')
 
 
